@@ -1,0 +1,6 @@
+*.tfstate*
+*.tfvars
+kubeconfig*
+*.key
+*.pem
+secret*.yaml

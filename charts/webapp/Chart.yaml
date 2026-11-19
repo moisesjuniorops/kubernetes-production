@@ -1,0 +1,5 @@
+apiVersion: v2
+name: webapp
+description: Chart genérico para apps HTTP stateless ou com volume único (paved road)
+type: application
+version: 0.1.0

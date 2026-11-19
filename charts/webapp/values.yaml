@@ -1,0 +1,37 @@
+image:
+  repository: ""            # obrigatório
+  tag: ""                   # obrigatório; nunca "latest"
+  pullPolicy: IfNotPresent
+imagePullSecrets: []        # ex.: [{ name: ghcr }]
+
+port: 8000
+replicas: 1
+strategy: RollingUpdate     # use Recreate com volume RWO (ex.: SQLite)
+
+env: {}                     # { CHAVE: valor }
+
+probes:
+  liveness: /healthz
+  readiness: /readyz
+
+resources:
+  requests: { cpu: 50m, memory: 128Mi }
+  limits: { memory: 256Mi }
+
+securityContext:
+  runAsUser: 10001
+  runAsGroup: 10001
+  fsGroup: 10001
+
+persistence:
+  enabled: false
+  mountPath: /data
+  size: 1Gi
+  storageClass: ""          # vazio = default do cluster
+
+route:
+  enabled: true
+  hostnames: []
+  gateway:
+    name: lan
+    namespace: envoy-gateway-system

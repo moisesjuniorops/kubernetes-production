@@ -1,0 +1,12 @@
+image:
+  repository: ghcr.io/moisesjuniorops/homectl
+imagePullSecrets:
+  - name: ghcr              # criado à mão: kubectl -n homectl create secret docker-registry ghcr ...
+port: 8000
+strategy: Recreate          # SQLite em volume RWO: um pod por vez
+env:
+  DATABASE_URL: sqlite:////app/data/homectl.db
+persistence:
+  enabled: true
+  mountPath: /app/data
+  size: 1Gi

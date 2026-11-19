@@ -1,0 +1,33 @@
+# Um Application por app/ambiente, renderizando o chart genérico charts/webapp
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - list:
+        elements:
+          - { app: homectl, env: prod }
+  template:
+    metadata:
+      name: "{{ .app }}-{{ .env }}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/moisesjuniorops/kubernetes-production
+        targetRevision: main
+        path: charts/webapp
+        helm:
+          releaseName: "{{ .app }}"
+          valueFiles:
+            - "../../apps/{{ .app }}/values.yaml"
+            - "../../apps/{{ .app }}/values-{{ .env }}.yaml"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{ .app }}"
+      syncPolicy:
+        automated: { prune: true, selfHeal: true }
+        syncOptions: [CreateNamespace=true]
