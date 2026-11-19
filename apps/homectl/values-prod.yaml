@@ -1,5 +1,5 @@
 image:
-  tag: 0571ad2 # atualizado pelo CI (job bump do repo homectl)
+  tag: 9a92e2d # atualizado pelo CI (job bump do repo homectl)
 replicas: 1
 route:
   hostnames:
