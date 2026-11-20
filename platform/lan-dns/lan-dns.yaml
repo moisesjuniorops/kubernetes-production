@@ -1,3 +1,5 @@
+# DNS dedicado aos domínios *.lan: responde com o IP do Gateway (Envoy) e
+# encaminha o resto para a internet. Separado do CoreDNS do kube-system.
 apiVersion: v1
 kind: Namespace
 metadata:
