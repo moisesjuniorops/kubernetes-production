@@ -4,3 +4,4 @@ replicas: 1
 route:
   hostnames:
     - homectl.lan
+    - 192.168.3.241.nip.io
